@@ -15,4 +15,4 @@ Code · Structure info (normalize fields).
 
 OpenAI · Chat (LinkedIn follow-up using NOTES + fields).
 
-Google Sheets · Append.
+Google Sheets · Update.
