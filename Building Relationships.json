@@ -245,6 +245,189 @@
           "name": "OpenAi account 3"
         }
       }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "chatgpt-4o-latest",
+          "mode": "list",
+          "cachedResultName": "CHATGPT-4O-LATEST"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=NOTES (must use): {{ $('trigger: form submission').item.json['Quick notes about the person'] }}\n\nFIELDS (use only if present; never guess):\nname: {{ $json.name || $json[\"full name\"] }}\ntitle: {{ $json.job_title || $json[\"job title\"] }}\ncompany: {{ $json.company }}\nlocation: {{ $json.location }}\nuniversity: {{ $json.university }}\ndescription: {{ $json.description }}\n\nTASK\nWrite ONE LinkedIn DM that:\n- Cites exactly ONE concrete detail from NOTES.\n- Optionally weaves in title/company/location if present.\n- Makes ONE light ask.\n- Ends with a question.\nPlain text only, ≤450 chars, no added facts beyond NOTES/FIELDS."
+            },
+            {
+              "content": "You write short LinkedIn follow-ups grounded in structured fields.\n\nGROUNDING & SAFETY\n- ALWAYS anchor on NOTES. If a detail is not in NOTES or the provided fields, OMIT it.\n- NEVER invent, infer, or generalize (no “seems like”, “probably”, etc.).\n- If a field is empty or unclear, ignore it—don’t guess.\n- Keep claims strictly to what’s provided.\n\nSTYLE\n- Plain text only (no emojis, bullets, or brackets). ≤ 450 characters.\n- Friendly, crisp, professional. Reference ONE concrete detail from NOTES.\n- Suggest ONE light next step (share resource / quick chat / intro).\n- End with ONE question.\n\nCONTENT RULES\n- If name is available, greet by first name only.\n- If title/company/location exist, you MAY use them, but don’t restate all—only what helps the ask.\n- Do not mention university unless present and relevant to the ask.\n",
+              "role": "system"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        768,
+        0
+      ],
+      "id": "68a56ac8-939d-471d-b044-3a5d6350ba1a",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "UFwOpkzYRU14ErsO",
+          "name": "OpenAi account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls",
+          "mode": "list",
+          "cachedResultName": "people_met",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1792683448,
+          "mode": "list",
+          "cachedResultName": " crm",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls/edit#gid=1792683448"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Upload a screenshot or image of the person": "={{ $('get screenshot').item.json['Upload a screenshot or image of the person'] }}",
+            "follow-up message": "={{ $json.message.content }}"
+          },
+          "matchingColumns": [
+            "Upload a screenshot or image of the person"
+          ],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Upload a screenshot or image of the person",
+              "displayName": "Upload a screenshot or image of the person",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Quick notes about the person",
+              "displayName": "Quick notes about the person",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "full name",
+              "displayName": "full name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "job title",
+              "displayName": "job title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "university",
+              "displayName": "university",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "follow-up message",
+              "displayName": "follow-up message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1120,
+        0
+      ],
+      "id": "97191552-75e0-4c83-8839-ae395da730e5",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "v4xHZqDHFfYnLvx8",
+          "name": "Google Sheets account 2"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -273,7 +456,13 @@
     },
     "update crm": {
       "main": [
-        []
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "structure info": {
@@ -297,6 +486,17 @@
           }
         ]
       ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -305,7 +505,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "executionTimeout": -1
   },
-  "versionId": "8ebb6ea5-b4f4-46a3-ad0f-c7b616be5507",
+  "versionId": "46835e4e-25a0-40ec-b142-43972e7a814e",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "1905e61b44b7ed813b07d50ede9f3b117bda7f51e302c45ba072b51abc1564d3"
