@@ -1,0 +1,315 @@
+{
+  "name": "Building Relationships",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls",
+          "mode": "list",
+          "cachedResultName": "people_met",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1792683448,
+          "mode": "list",
+          "cachedResultName": " crm",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls/edit#gid=1792683448"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        0
+      ],
+      "id": "19297a5d-72b1-4f1a-9603-839e2046eebb",
+      "name": "trigger: form submission",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "wibM4YGlV5TNZ8H8",
+          "name": "Google Sheets Trigger account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ (($json[\"Upload a screenshot or image of the person\"] || \"\").match(/(?:\\/file\\/d\\/|\\/d\\/|open\\?id=|uc\\?id=|thumbnail\\?id=|id=)([-\\w]{10,})/) || [,\"\"])[1] }}\n",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -128,
+        0
+      ],
+      "id": "a86dbb07-f8f1-4a94-afd0-06cbfefc2ff1",
+      "name": "get screenshot",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "s6uqlU3KmJCX3EOB",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls",
+          "mode": "list",
+          "cachedResultName": "people_met",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1792683448,
+          "mode": "list",
+          "cachedResultName": " crm",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uMhuBJqmvv47BNRbmsRxBVEhjYi7IMDZeUmpX72wXls/edit#gid=1792683448"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "full name": "={{ $json.name }}",
+            "job title": "={{ $json.job_title }}",
+            "company": "={{ $json.company }}",
+            "location": "={{ $json.location }}",
+            "university": "={{ $json.university }}",
+            "description": "={{ $json.description }}",
+            "Upload a screenshot or image of the person": "={{ $('get screenshot').item.json['Upload a screenshot or image of the person'] }}"
+          },
+          "matchingColumns": [
+            "Upload a screenshot or image of the person"
+          ],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Upload a screenshot or image of the person",
+              "displayName": "Upload a screenshot or image of the person",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Quick notes about the person",
+              "displayName": "Quick notes about the person",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "full name",
+              "displayName": "full name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "job title",
+              "displayName": "job title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "university",
+              "displayName": "university",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        0
+      ],
+      "id": "667061a4-1ad4-49e1-b5ea-31de70ebba19",
+      "name": "update crm",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "v4xHZqDHFfYnLvx8",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code node (JavaScript). Mode: \"Run Once for Each Item\"\nfunction titleCaseName(s) {\n  if (!s || typeof s !== 'string') return s;\n  return s\n    .trim()\n    .split(/\\s+/)\n    .map(w => w[0] ? (w[0].toUpperCase() + w.slice(1).toLowerCase()) : w)\n    .join(' ');\n}\n\nfunction clean(v) {\n  if (v === undefined || v === null) return null;\n  const s = String(v).trim();\n  return s === '' ? null : s;\n}\n\nconst out = [];\n\nfor (const item of items) {\n  // 1) Get raw model output (handles various OpenAI node shapes)\n  let raw =\n    item.json?.text ??                           // common \"Simplify Output\" field\n    item.json?.content ??                        // some OpenAI nodes\n    item.json?.response ??                       // alt\n    item.json?.choices?.[0]?.message?.content ?? // raw OpenAI\n    item.json;                                   // last resort\n\n  // 2) Parse to object (strip code fences, smart quotes, double-parse fallback)\n  let obj = raw;\n  if (typeof raw === 'string') {\n    let s = raw.trim().replace(/^```(?:json)?\\s*|\\s*```$/g, '');\n    s = s.replace(/[\\u201C\\u201D]/g, '\"').replace(/[\\u2018\\u2019]/g, \"'\");\n    try { obj = JSON.parse(s); }\n    catch {\n      obj = JSON.parse(JSON.parse(s)); // handles quoted-JSON-in-a-string\n    }\n  }\n\n  // 3) Accept common alias keys from the model, then normalize\n  const aliases = {\n    name: ['name', 'full_name', 'person', 'candidate'],\n    job_title: ['job_title', 'title', 'role', 'position', 'headline'],\n    company: ['company', 'org', 'employer', 'organization'],\n    location: ['location', 'city', 'based_in', 'place'],\n    university: ['university', 'school', 'alma_mater', 'education'],\n    description: ['description', 'summary', 'about', 'bio']\n  };\n\n  const pick = (o, keys) => {\n    for (const k of keys) if (o && o[k] != null) return o[k];\n    return null;\n  };\n\n  const result = {\n    name:        titleCaseName(clean(pick(obj, aliases.name))),\n    job_title:   clean(pick(obj, aliases.job_title)),\n    company:     clean(pick(obj, aliases.company)),\n    location:    clean(pick(obj, aliases.location)),\n    university:  clean(pick(obj, aliases.university)),\n    description: clean(pick(obj, aliases.description))\n  };\n\n  // 4) Optional: trim description length\n  if (result.description && result.description.length > 300) {\n    result.description = result.description.slice(0, 297) + '...';\n  }\n\n  out.push({ json: result });\n}\n\nreturn out;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        0
+      ],
+      "id": "a8e74d84-fe03-457d-a967-0252e508ae11",
+      "name": "structure info"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "chatgpt-4o-latest",
+          "mode": "list",
+          "cachedResultName": "CHATGPT-4O-LATEST"
+        },
+        "text": "You extract structured data from images of profiles, email signatures, business cards, event badges, resumes, or screenshots.\n\nRules:\n- OUTPUT STRICT JSON ONLY. No markdown, no prose, no comments.\n- Return exactly these 5 keys; if a field isn’t clearly present, use null.\n- Prefer the primary/most prominent person if multiple appear.\n- Normalize whitespace and title-case personal names; keep original casing for company/university.\n- Keep description to 1–2 sentences summarizing what’s visible (role, focus, notable lines). Do not invent info.\n\nReturn exactly:\n{\n  \"name\": string|null,\n  \"job_title\": string|null,\n  \"company\": string|null,\n  \"university\": string|null,\n  \"description\": string|null\n}",
+        "inputType": "base64",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        112,
+        0
+      ],
+      "id": "f205b29f-25f7-407f-a766-5c4282bf3d2e",
+      "name": "Analyze image",
+      "credentials": {
+        "openAiApi": {
+          "id": "UFwOpkzYRU14ErsO",
+          "name": "OpenAi account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "trigger: form submission": {
+      "main": [
+        [
+          {
+            "node": "get screenshot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get screenshot": {
+      "main": [
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update crm": {
+      "main": [
+        []
+      ]
+    },
+    "structure info": {
+      "main": [
+        [
+          {
+            "node": "update crm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "structure info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1
+  },
+  "versionId": "8ebb6ea5-b4f4-46a3-ad0f-c7b616be5507",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1905e61b44b7ed813b07d50ede9f3b117bda7f51e302c45ba072b51abc1564d3"
+  },
+  "id": "oWKvtCob49JdbTnf",
+  "tags": []
+}
